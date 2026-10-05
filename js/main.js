@@ -34,10 +34,25 @@ let history = [];
  */
 function validateForm() {
     // Kontrollera formulärets obligatoriska fält
+if (fullnameInput.value === "") {               //om fältet för namn är tomt
+    errors.push("Du måste ange ett namn");      //lägg till det här meddelandet i arrayen errors    
+}
 
+if (emailInput.value === "") {
+    errors.push("Du måste ange en e-postadress");
+}
+
+if (phoneInput.value === "") {
+    errors.push("Du måste ange ett telefonnummer");
+}
     // Visa eventuella felmeddelanden
-
+displayErrors();
     // Returnera resultatet (true eller false) av valideringen
+    if (errors.length > 0) {
+        return false;
+    }
+    
+return true;
 }
 
 
@@ -48,6 +63,14 @@ function displayErrors() {
     // Rensa tidigare felmeddelanden
 
     // Skriv ut aktuella felmeddelanden till DOM
+errors.forEach(error => {
+    const errorLi = document.createElement("li");
+    const errorText = document.createTextNode(error);
+
+    errorLi.appendChild(errorText);
+    errorList.appendChild(errorLi);
+});
+
 }
 
 
