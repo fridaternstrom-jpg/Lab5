@@ -118,7 +118,7 @@ function saveHistory(user) {
     // Spara history i localStorage
 history.unshift(user);          //lägger till inmatade uppgifter i historyarrayen
 
-let userData = JSON.stringify(history);     //omvandlar datan i arrayen för att kunna lagra i local storage
+const userData = JSON.stringify(history);     //omvandlar datan i arrayen för att kunna lagra i local storage
 
 localStorage.setItem("user", userData);    //sparar i local storage
 }
@@ -129,7 +129,7 @@ localStorage.setItem("user", userData);    //sparar i local storage
  */
 function loadHistory() {
     // Hämta eventuell sparad historik
-let userData = localStorage.getItem("user"); //hämta användare från local storage
+const userData = localStorage.getItem("user"); //hämta användare från local storage
 
 history = JSON.parse(userData);             //omvandlar till objekt igen
     // Uppdatera history
