@@ -104,16 +104,22 @@ function createStudentCard() {
     });
 
     // Lägg till studentkortet i historiken
-
+saveHistory(user);
     // Spara och uppdatera historiken
+    loadHistory();
 }
 
 
 /**
  * Sparar historiken i localStorage.
  */
-function saveHistory() {
+function saveHistory(user) {
     // Spara history i localStorage
+history.unshift(user);          //lägger till inmatade uppgifter i historyarrayen
+
+let userData = JSON.stringify(history);     //omvandlar datan i arrayen för att kunna lagra i local storage
+
+localStorage.setItem("user", userData);    //sparar i local storage
 }
 
 
