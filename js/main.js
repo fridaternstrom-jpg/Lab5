@@ -1,7 +1,7 @@
 "use strict";
 /*
  * Laboration 5 - Studentkortsgenerator
- * Namn: DITT NAMN
+ * Namn: Frida Ternström
  */
 
 // Hämta element från DOM
@@ -114,17 +114,20 @@ function deleteHistory() {
 
 
 // Eventlyssnare
+form.addEventListener("submit", function (event){       // När formuläret skickas:
+    event.preventDefault();
 
-// När formuläret skickas:
-// - validera inmatningen
-// - skapa studentkort om valideringen lyckas
+    if (validateForm() === true) {                      // - validera inmatningen
+        createStudentCard();                            // - skapa studentkort om valideringen lyckas
+    }
+});
 
 
 // När användaren klickar på "Rensa"
-
+clearButton.addEventListener("click", clearForm);       //så körs clearForm
 
 // När användaren klickar på "Radera historik"
-
+deleteHistoryButton.addEventListener("click", deleteHistory);       //så körs deleteHistory
 
 // När sidan laddas:
 // - läs in och visa eventuell tidigare historik
