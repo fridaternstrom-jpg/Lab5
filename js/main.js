@@ -22,6 +22,7 @@ const historySection = document.querySelector("#history");
 const deleteHistoryButton = document.querySelector("#delete");
 
 
+
 // Array som används för felmeddelanden
 let errors = [];
 
@@ -34,28 +35,28 @@ let history = [];
  */
 function validateForm() {
 
-    errorList.innerHTML = "";
+    errorList.innerHTML = "";                   //rensar i errors inför varje validering
     errors.length = 0;
     // Kontrollera formulärets obligatoriska fält
-if (fullnameInput.value === "") {               //om fältet för namn är tomt
-    errors.push("Du måste ange ett namn");      //lägg till det här meddelandet i arrayen errors    
-}
+    if (fullnameInput.value === "") {               //om fältet för namn är tomt
+        errors.push("Du måste ange ett namn");      //lägg till det här meddelandet i arrayen errors    
+    }
 
-if (emailInput.value === "") {
-    errors.push("Du måste ange en e-postadress");
-}
+    if (emailInput.value === "") {
+        errors.push("Du måste ange en e-postadress");
+    }
 
-if (phoneInput.value === "") {
-    errors.push("Du måste ange ett telefonnummer");
-}
+    if (phoneInput.value === "") {
+        errors.push("Du måste ange ett telefonnummer");
+    }
     // Visa eventuella felmeddelanden
-displayErrors();
+    displayErrors();
     // Returnera resultatet (true eller false) av valideringen
-    if (errors.length > 0) {
+    if (errors.length > 0) {                //om antalet errors är fler än 0 = false
         return false;
     }
-    
-return true;
+
+    return true;                                //om allt går igenom
 }
 
 
@@ -63,16 +64,16 @@ return true;
  * Visar felmeddelanden på sidan.
  */
 function displayErrors() {
-    // Rensa tidigare felmeddelanden
+    // Rensa tidigare felmeddelanden - rensar i validate
 
     // Skriv ut aktuella felmeddelanden till DOM
-errors.forEach(error => {
-    const errorLi = document.createElement("li");
-    const errorText = document.createTextNode(error);
+    errors.forEach(error => {
+        const errorLi = document.createElement("li");       //skapar nytt li-element
+        const errorText = document.createTextNode(error);   //fyller li med error-text
 
-    errorLi.appendChild(errorText);
-    errorList.appendChild(errorLi);
-});
+        errorLi.appendChild(errorText);                     //lägger text som barn till li
+        errorList.appendChild(errorLi);                     //lägger error som barn till ul
+    });
 
 }
 
@@ -82,8 +83,25 @@ errors.forEach(error => {
  */
 function createStudentCard() {
     // Hämta information från formuläret
+    const nameValue = fullnameInput.value;              //skapar element med värdet inbyggt, för enkelhet
+    const emailValue = emailInput.value;
+    const phoneValue = phoneInput.value;
+    const fontValue = fontSelect.value;
 
+    //lägger till användarens inmatning för preview
+    let user = {
+        name: nameValue,                //hämtar värdet av användarens inmatning
+        email: emailValue,
+        phone: phoneValue,
+        font: fontValue
+    }
     // Uppdatera studentkortet
+    previewFullname.textContent = nameValue;        //skriver ut värdena i förhandsvisningen
+    previewEmail.textContent = emailValue;
+    previewPhone.textContent = phoneValue;
+    document.querySelectorAll(".card-info").forEach(cardValue => {      //loopar igenom elementen i .card-info för att lägga på rätt font
+        cardValue.style.fontFamily = fontValue;
+    });
 
     // Lägg till studentkortet i historiken
 
@@ -140,7 +158,7 @@ function deleteHistory() {
 
 
 // Eventlyssnare
-form.addEventListener("submit", function (event){       // När formuläret skickas:
+form.addEventListener("submit", function (event) {       // När formuläret skickas:
     event.preventDefault();
 
     if (validateForm() === true) {                      // - validera inmatningen
