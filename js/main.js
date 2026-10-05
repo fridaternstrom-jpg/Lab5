@@ -33,6 +33,9 @@ let history = [];
  * @returns {boolean}
  */
 function validateForm() {
+
+    errorList.innerHTML = "";
+    errors.length = 0;
     // Kontrollera formulärets obligatoriska fält
 if (fullnameInput.value === "") {               //om fältet för namn är tomt
     errors.push("Du måste ange ett namn");      //lägg till det här meddelandet i arrayen errors    
