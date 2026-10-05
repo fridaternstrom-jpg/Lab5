@@ -107,6 +107,7 @@ function createStudentCard() {
 saveHistory(user);
     // Spara och uppdatera historiken
     loadHistory();
+    renderHistory();
 }
 
 
@@ -128,7 +129,9 @@ localStorage.setItem("user", userData);    //sparar i local storage
  */
 function loadHistory() {
     // Hämta eventuell sparad historik
+let userData = localStorage.getItem("user"); //hämta användare från local storage
 
+history = JSON.parse(userData);             //omvandlar till objekt igen
     // Uppdatera history
 }
 
@@ -138,8 +141,24 @@ function loadHistory() {
  */
 function renderHistory() {
     // Rensa tidigare visad historik
+historySection.innerHTML = "";
 
     // Skriv ut innehållet i history till DOM
+history.forEach(users => {
+    const getUser = document.createElement("p");        //skapar nytt element för att lägga text i
+
+    //innehåll till elementet:
+    getUser.innerHTML = `Namn: ${users.name}<br>        
+        Email: ${users.email}<br>
+         Telefon: ${users.phone}<br>
+         Font: ${users.font}`;
+
+        getUser.style.border = "1px solid #aaa";    //stylar så att varje historikpost får en border
+        getUser.style.padding = "10px";
+
+        historySection.appendChild(getUser);           //låter det nya elementet bli ett barn i historiesektionen
+});
+
 }
 
 
