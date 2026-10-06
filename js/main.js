@@ -105,11 +105,11 @@ function createStudentCard() {
 
     // Lägg till studentkortet i historiken
     saveHistory(user);
-    // Spara och uppdatera historiken
 
     // Rensa tidigare visad historik
     historySection.innerHTML = "";
-    loadHistory();
+
+    //Kör funktion för att visa historiken direkt
     renderHistory();
 }
 
@@ -145,7 +145,7 @@ function loadHistory() {
  */
 function renderHistory() {
 
-    // Skriv ut innehållet i history till DOM
+    // Skriv ut innehållet i history till DOM, var för sig
     history.forEach(users => {
         const getUser = document.createElement("p");        //skapar nytt element för att lägga text i
 
