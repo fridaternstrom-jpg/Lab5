@@ -165,10 +165,10 @@ function renderHistory() {
 
 
 /**
- * Rensar formulär, aktuellt studentkort och felmeddelanden.
+ * Rensar formulär och felmeddelanden.
  */
 function clearForm() {
-    // Återställ formulär och studentkort
+    // Återställ formulär
     form.reset();
     // Rensa eventuella felmeddelanden
     errorList.innerHTML = "";
@@ -179,11 +179,12 @@ function clearForm() {
  * Raderar hela historiken.
  */
 function deleteHistory() {
-    // Radera sparad historik
-    localStorage.removeItem("user");
-    history.length = 0;
-    historySection.innerHTML = "";
-    // Uppdatera history och visningen på sidan
+    localStorage.removeItem("user");        //radera localStorage
+    history.length = 0;                     //rensa arrayen history
+    historySection.innerHTML = "";          //ta bort den text som finns i historySection
+    previewFullname.textContent = "Namn";   //återställer studentkortets förhandsvy
+    previewEmail.textContent = "E-post";
+    previewPhone.textContent = "Telefon";
 }
 
 
