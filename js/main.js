@@ -167,8 +167,9 @@ history.forEach(users => {
  */
 function clearForm() {
     // Återställ formulär och studentkort
-
+form.reset();
     // Rensa eventuella felmeddelanden
+    errorList.innerHTML = "";
 }
 
 
@@ -177,7 +178,9 @@ function clearForm() {
  */
 function deleteHistory() {
     // Radera sparad historik
-
+localStorage.removeItem("user");
+history.length = 0;
+historySection.innerHTML = "";
     // Uppdatera history och visningen på sidan
 }
 
