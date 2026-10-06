@@ -38,15 +38,15 @@ function validateForm() {
     errorList.innerHTML = "";                   //rensar i errors inför varje validering
     errors.length = 0;
     // Kontrollera formulärets obligatoriska fält
-    if (fullnameInput.value === "") {               //om fältet för namn är tomt
+    if (fullnameInput.value.trim() === "") {               //om fältet för namn är tomt
         errors.push("Du måste ange ett namn");      //lägg till det här meddelandet i arrayen errors    
     }
 
-    if (emailInput.value === "") {
+    if (emailInput.value.trim() === "") {
         errors.push("Du måste ange en e-postadress");
     }
 
-    if (phoneInput.value === "") {
+    if (phoneInput.value.trim() === "") {
         errors.push("Du måste ange ett telefonnummer");
     }
     // Visa eventuella felmeddelanden
@@ -76,16 +76,14 @@ function displayErrors() {
     });
 
 }
-
-
 /**
  * Skapar ett studentkort och visar det på sidan.
  */
 function createStudentCard() {
     // Hämta information från formuläret
-    const nameValue = fullnameInput.value.trim();              //skapar element med värdet inbyggt, för enkelhet
-    const emailValue = emailInput.value.trim();
-    const phoneValue = phoneInput.value.trim();
+    const nameValue = fullnameInput.value;              //skapar element med värdet inbyggt, för enkelhet
+    const emailValue = emailInput.value;
+    const phoneValue = phoneInput.value;
     const fontValue = fontSelect.value;
 
     //lägger till användarens inmatning för preview
@@ -196,7 +194,6 @@ form.addEventListener("submit", function (event) {       // När formuläret ski
         createStudentCard();                            // - skapa studentkort om valideringen lyckas
     }
 });
-
 
 // När användaren klickar på "Rensa"
 clearButton.addEventListener("click", clearForm);       //så körs clearForm
