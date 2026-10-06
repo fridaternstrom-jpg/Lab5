@@ -83,9 +83,9 @@ function displayErrors() {
  */
 function createStudentCard() {
     // Hämta information från formuläret
-    const nameValue = fullnameInput.value;              //skapar element med värdet inbyggt, för enkelhet
-    const emailValue = emailInput.value;
-    const phoneValue = phoneInput.value;
+    const nameValue = fullnameInput.value.trim();              //skapar element med värdet inbyggt, för enkelhet
+    const emailValue = emailInput.value.trim();
+    const phoneValue = phoneInput.value.trim();
     const fontValue = fontSelect.value;
 
     //lägger till användarens inmatning för preview
