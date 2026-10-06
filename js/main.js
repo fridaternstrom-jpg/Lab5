@@ -104,8 +104,11 @@ function createStudentCard() {
     });
 
     // Lägg till studentkortet i historiken
-saveHistory(user);
+    saveHistory(user);
     // Spara och uppdatera historiken
+
+    // Rensa tidigare visad historik
+    historySection.innerHTML = "";
     loadHistory();
     renderHistory();
 }
@@ -116,11 +119,11 @@ saveHistory(user);
  */
 function saveHistory(user) {
     // Spara history i localStorage
-history.unshift(user);          //lägger till inmatade uppgifter i historyarrayen
+    history.unshift(user);          //lägger till inmatade uppgifter i historyarrayen
 
-const userData = JSON.stringify(history);     //omvandlar datan i arrayen för att kunna lagra i local storage
+    const userData = JSON.stringify(history);     //omvandlar datan i arrayen för att kunna lagra i local storage
 
-localStorage.setItem("user", userData);    //sparar i local storage
+    localStorage.setItem("user", userData);    //sparar i local storage
 }
 
 
@@ -129,10 +132,11 @@ localStorage.setItem("user", userData);    //sparar i local storage
  */
 function loadHistory() {
     // Hämta eventuell sparad historik
-const userData = localStorage.getItem("user"); //hämta användare från local storage
+    const userData = localStorage.getItem("user"); //hämta användare från local storage
 
-history = JSON.parse(userData);             //omvandlar till objekt igen
-    // Uppdatera history
+    if (userData) {                                 //om det finns någon användardata
+        history = JSON.parse(userData);             //omvandla den till objekt igen
+    }
 }
 
 
@@ -140,15 +144,13 @@ history = JSON.parse(userData);             //omvandlar till objekt igen
  * Visar historiken på sidan.
  */
 function renderHistory() {
-    // Rensa tidigare visad historik
-historySection.innerHTML = "";
 
     // Skriv ut innehållet i history till DOM
-history.forEach(users => {
-    const getUser = document.createElement("p");        //skapar nytt element för att lägga text i
+    history.forEach(users => {
+        const getUser = document.createElement("p");        //skapar nytt element för att lägga text i
 
-    //innehåll till elementet:
-    getUser.innerHTML = `Namn: ${users.name}<br>        
+        //innehåll till elementet:
+        getUser.innerHTML = `Namn: ${users.name}<br>        
         Email: ${users.email}<br>
          Telefon: ${users.phone}<br>
          Font: ${users.font}`;
@@ -157,7 +159,7 @@ history.forEach(users => {
         getUser.style.padding = "10px";
 
         historySection.appendChild(getUser);           //låter det nya elementet bli ett barn i historiesektionen
-});
+    });
 
 }
 
@@ -167,7 +169,7 @@ history.forEach(users => {
  */
 function clearForm() {
     // Återställ formulär och studentkort
-form.reset();
+    form.reset();
     // Rensa eventuella felmeddelanden
     errorList.innerHTML = "";
 }
@@ -178,9 +180,9 @@ form.reset();
  */
 function deleteHistory() {
     // Radera sparad historik
-localStorage.removeItem("user");
-history.length = 0;
-historySection.innerHTML = "";
+    localStorage.removeItem("user");
+    history.length = 0;
+    historySection.innerHTML = "";
     // Uppdatera history och visningen på sidan
 }
 
@@ -203,3 +205,7 @@ deleteHistoryButton.addEventListener("click", deleteHistory);       //så körs 
 
 // När sidan laddas:
 // - läs in och visa eventuell tidigare historik
+document.addEventListener("DOMContentLoaded", function () {         //när sidan laddas, kör funktionerna för att hämta historik
+    loadHistory();
+    renderHistory();
+});
